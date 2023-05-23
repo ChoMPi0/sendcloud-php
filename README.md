@@ -40,14 +40,8 @@ $publicKey = getenv('SENDCLOUD_PUBLIC_KEY');
 $privateKey = getenv('SENDCLOUD_PRIVATE_KEY');
 $api = new Sendcloud\SendcloudAPI($publicKey, $privateKey);
 
-// Get a list of categories
-$response = $api->categories()->list();
-
-// Get a shipment
-$response = $api->shipments()->get('ESTEST10001');
-
-// Buy a label for a shipment
-$response = $api->labels()->buy(['Sendcloud_shipment_id' => 'ESTEST10001']);
+// Get a list of parcels
+$response = $api->parcels()->list();
 ```
 
 All methods return an instance of an object implementing
