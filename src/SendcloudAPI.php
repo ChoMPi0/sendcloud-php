@@ -2,11 +2,10 @@
 
 namespace Sendcloud;
 
-use Sendcloud\Exceptions\ApiException;
 use Sendcloud\Modules\Parcels;
 use Sendcloud\Modules\Checkout;
+use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Client;
-use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
 use Sendcloud\Modules\CustomsDeclarations;
 use Sendcloud\Modules\Labels;
@@ -32,7 +31,7 @@ class SendcloudAPI
     protected $apiHost = 'https://panel.sendcloud.sc';
 
     /**
-     * @var \Psr\Http\Client\ClientInterface
+     * @var ClientInterface
      */
     protected $client;
 
@@ -177,7 +176,7 @@ class SendcloudAPI
      * Get an Http client to send API requests with. If none is already
      * available, an instance of GuzzleHttp/Client will be created.
      *
-     * @return \Psr\Http\Client\ClientInterface
+     * @return ClientInterface
      */
     public function getClient(): ClientInterface
     {
@@ -191,7 +190,7 @@ class SendcloudAPI
     /**
      * Pass in a compatible HTTP client object to be used.
      *
-     * @param \Psr\Http\Client\ClientInterface $client
+     * @param ClientInterface $client
      *
      * @return void
      */
