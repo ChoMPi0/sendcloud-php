@@ -72,15 +72,13 @@ class SendcloudAPI
         $uri = $this->buildUri($this->apiHost, $endpoint);
         $request = $this->buildRequest($method, $uri, $payload);
         $this->lastRequest = $request;
-        $responseRaw = $this->submitRequest($request);
-        $response = new SendcloudResponse($responseRaw->getBody()->getContents(), $responseRaw->getStatusCode());
-
-        if (!empty($response->messages))
-        {
-            throw new ApiException(implode(', ', $response->messages));
-        }
-
-        return $response;
+        $response = $this->submitRequest($request);
+        return new SendcloudResponse(
+            $response->getStatusCode(), 
+            $response->getHeaders(), 
+            $response->getBody(), 
+            $response->getProtocolVersion(), 
+            $response->getReasonPhrase());
     }
 
     public function buildRequest(
@@ -95,6 +93,7 @@ class SendcloudAPI
      * Pass a request into the Guzzle client.
      *
      * @param SendcloudRequest $request
+     * 
      * @return \GuzzleHttp\Psr7\Response
      */
     public function submitRequest(SendcloudRequest $request): ResponseInterface

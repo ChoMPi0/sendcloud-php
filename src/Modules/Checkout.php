@@ -15,7 +15,7 @@ class Checkout extends Module
      * @param string $configurationId
      * @param array $query Params to pass in the query string
      *
-     * @return \Psr\Http\Message\ResponseInterface
+     * @return ResponseInterface
      */
     public function get(string $configurationId, array $query = []): ResponseInterface
     {
