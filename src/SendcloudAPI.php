@@ -8,6 +8,7 @@ use Sendcloud\Modules\Checkout;
 use GuzzleHttp\Client;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
+use Sendcloud\Modules\CustomsDeclarations;
 use Sendcloud\Modules\Labels;
 use Sendcloud\Modules\ParcelDocuments;
 use Sendcloud\Modules\ParcelStatuses;
@@ -215,6 +216,14 @@ class SendcloudAPI
     public function checkout(): Checkout
     {
         return new Checkout($this);
+    }
+
+    /**
+     * @return \Sendcloud\Modules\CustomsDeclarations
+     */
+    public function customsDeclarations(): CustomsDeclarations
+    {
+        return new CustomsDeclarations($this);
     }
 
     /**

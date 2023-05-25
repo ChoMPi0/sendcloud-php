@@ -84,6 +84,11 @@ class Labels extends Module
     {
         $endpoint = '/api/v2/labels/normal_printer';
 
+        if (!isset($query['ids']))
+        {
+            throw new ApiException('Please provide parcel ids array.');
+        }
+
         return $this->sendcloud->request('get', $endpoint, $query);
     }
 
@@ -121,6 +126,11 @@ class Labels extends Module
     {
         $endpoint = '/api/v2/labels/label_printer';
 
+        if (!isset($query['ids']))
+        {
+            throw new ApiException('Please provide parcel ids array.');
+        }
+        
         return $this->sendcloud->request('get', $endpoint, $query);
     }
 }
