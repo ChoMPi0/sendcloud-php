@@ -11,12 +11,6 @@
             "homepage": "https://www.linkedin.com/in/nedyalko-chakandrakov-31a6921a6/"
         }
     ],
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/ChoMPi0/sendcloud-php"
-        }
-    ],
     "require": {
         "php": ">=7.2",
         "guzzlehttp/guzzle": "^7.3",
