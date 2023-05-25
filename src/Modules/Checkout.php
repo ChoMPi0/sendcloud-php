@@ -3,7 +3,7 @@
 namespace Sendcloud\Modules;
 
 use Sendcloud\Module;
-use Psr\Http\Message\ResponseInterface;
+use Sendcloud\SendcloudResponse;
 
 class Checkout extends Module
 {
@@ -15,9 +15,9 @@ class Checkout extends Module
      * @param string $configurationId
      * @param array $query Params to pass in the query string
      *
-     * @return ResponseInterface
+     * @return SendcloudResponse
      */
-    public function get(string $configurationId, array $query = []): ResponseInterface
+    public function get(string $configurationId, array $query = []): SendcloudResponse
     {
         $endpoint = '/api/v2/checkout/configurations/' . $configurationId . '/delivery-options';
 

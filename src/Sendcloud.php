@@ -19,7 +19,10 @@ require(dirname(__FILE__) . '/SendcloudResponse.php');
 require(dirname(__FILE__) . '/Webhooks/Handler.php');
 require(dirname(__FILE__) . '/Webhooks/ListenerInterface.php');
 
-require(dirname(__FILE__) . '/Modules/Parcels.php');
 require(dirname(__FILE__) . '/Modules/Checkout.php');
+require(dirname(__FILE__) . '/Modules/Labels.php');
+require(dirname(__FILE__) . '/Modules/Parcels.php');
+require(dirname(__FILE__) . '/Modules/ParcelStatuses.php');
+require(dirname(__FILE__) . '/Modules/Tracking.php');
 
 require(dirname(__FILE__) . '/SendcloudAPI.php');

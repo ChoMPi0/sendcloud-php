@@ -8,6 +8,10 @@ use Sendcloud\Modules\Checkout;
 use GuzzleHttp\Client;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
+use Sendcloud\Modules\Labels;
+use Sendcloud\Modules\ParcelDocuments;
+use Sendcloud\Modules\ParcelStatuses;
+use Sendcloud\Modules\Tracking;
 
 class SendcloudAPI
 {
@@ -206,6 +210,22 @@ class SendcloudAPI
     }
 
     /**
+     * @return \Sendcloud\Modules\Checkout
+     */
+    public function checkout(): Checkout
+    {
+        return new Checkout($this);
+    }
+
+    /**
+     * @return \Sendcloud\Modules\Labels
+     */
+    public function labels(): Labels
+    {
+        return new Labels($this);
+    }
+
+    /**
      * @return \Sendcloud\Modules\Parcels
      */
     public function parcels(): Parcels
@@ -214,10 +234,26 @@ class SendcloudAPI
     }
 
     /**
-     * @return \Sendcloud\Modules\Checkout
+     * @return \Sendcloud\Modules\ParcelDocuments
      */
-    public function checkout(): Checkout
+    public function parcelDocuments(): ParcelDocuments
     {
-        return new Checkout($this);
+        return new ParcelDocuments($this);
+    }
+    
+    /**
+     * @return \Sendcloud\Modules\ParcelStatuses
+     */
+    public function parcelStatuses(): ParcelStatuses
+    {
+        return new ParcelStatuses($this);
+    }
+
+    /**
+     * @return \Sendcloud\Modules\Tracking
+     */
+    public function tracking(): Tracking
+    {
+        return new Tracking($this);
     }
 }
