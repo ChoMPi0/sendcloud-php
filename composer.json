@@ -1,6 +1,7 @@
 {
-    "name": "ChoMPi0/sendcloud-php",
+    "name": "chompi0/sendcloud-php",
     "description": "A PHP library to simplify integration with the Sendcloud API",
+    "version": "0.1.0",
     "keywords": ["sendcloud", "api", "php"],
     "type": "library",
     "license": "MIT",
@@ -8,6 +9,12 @@
         {
             "name": "Nedyalko Chakandrakov",
             "homepage": "https://www.linkedin.com/in/nedyalko-chakandrakov-31a6921a6/"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/ChoMPi0/sendcloud-php"
         }
     ],
     "require": {

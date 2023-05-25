@@ -29,7 +29,7 @@ if it's not part of your implementation plan.
 Install with [composer](https://getcomposer.org) like normal:
 
 ```sh
-composer require ChoMPi0/sendcloud-php
+composer require chompi0/sendcloud-php
 ```
 
 # Usage

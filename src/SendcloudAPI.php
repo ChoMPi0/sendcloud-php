@@ -4,6 +4,7 @@ namespace Sendcloud;
 
 use Sendcloud\Exceptions\ApiException;
 use Sendcloud\Modules\Parcels;
+use Sendcloud\Modules\Checkout;
 use GuzzleHttp\Client;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -211,5 +212,13 @@ class SendcloudAPI
     public function parcels(): Parcels
     {
         return new Parcels($this);
+    }
+
+    /**
+     * @return \Sendcloud\Modules\Checkout
+     */
+    public function checkout(): Checkout
+    {
+        return new Checkout($this);
     }
 }
