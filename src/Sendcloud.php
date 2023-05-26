@@ -26,9 +26,14 @@ require(dirname(__FILE__) . '/Webhooks/ListenerInterface.php');
 require(dirname(__FILE__) . '/Modules/Checkout.php');
 require(dirname(__FILE__) . '/Modules/CustomsDeclarations.php');
 require(dirname(__FILE__) . '/Modules/Labels.php');
+require(dirname(__FILE__) . '/Modules/ParcelDocuments.php');
 require(dirname(__FILE__) . '/Modules/Parcels.php');
 require(dirname(__FILE__) . '/Modules/ParcelStatuses.php');
 require(dirname(__FILE__) . '/Modules/Pickups.php');
+require(dirname(__FILE__) . '/Modules/ShippingMethods.php');
+require(dirname(__FILE__) . '/Modules/ShippingPrices.php');
+require(dirname(__FILE__) . '/Modules/ShippingProducts.php');
 require(dirname(__FILE__) . '/Modules/Tracking.php');
+require(dirname(__FILE__) . '/Modules/TransitTimes.php');
 
 require(dirname(__FILE__) . '/SendcloudAPI.php');

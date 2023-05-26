@@ -16,6 +16,7 @@ use Sendcloud\Modules\ShippingMethods;
 use Sendcloud\Modules\ShippingPrices;
 use Sendcloud\Modules\ShippingProducts;
 use Sendcloud\Modules\Tracking;
+use Sendcloud\Modules\TransitTimes;
 
 class SendcloudAPI
 {
@@ -299,6 +300,14 @@ class SendcloudAPI
     public function tracking(): Tracking
     {
         return new Tracking($this);
+    }
+
+    /**
+     * @return \Sendcloud\Modules\TransitTimes
+     */
+    public function transitTimes(): TransitTimes
+    {
+        return new TransitTimes($this);
     }
 
     /**
