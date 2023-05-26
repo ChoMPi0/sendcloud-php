@@ -10,6 +10,8 @@ class Checkout extends Module
     /**
      * Retrieve a list of delivery options
      *
+     * To use this API, you first need to create your own Dynamic Checkout configuration in the Sendcloud panel.
+     * 
      * @link https://api.sendcloud.dev/docs/sendcloud-public-api/dynamic-checkout/operations/list-checkout-configuration-delivery-options
      *
      * @param string $configurationId

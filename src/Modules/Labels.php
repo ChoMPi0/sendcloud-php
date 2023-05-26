@@ -11,7 +11,8 @@ class Labels extends Module
     /**
      * Retrieve a Label
      * 
-     * Retrieve a shipping label for a specific parcel in PDF format. You can lookup the id of a parcel via the /parcels endpoint.
+     * Retrieve a shipping label for a specific parcel in PDF format. You can lookup the id of 
+     * a parcel via the /parcels endpoint.
      *
      * @link https://api.sendcloud.dev/docs/sendcloud-public-api/labels/operations/get-a-label
      *
