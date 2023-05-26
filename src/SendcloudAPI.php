@@ -11,6 +11,7 @@ use Sendcloud\Modules\CustomsDeclarations;
 use Sendcloud\Modules\Labels;
 use Sendcloud\Modules\ParcelDocuments;
 use Sendcloud\Modules\ParcelStatuses;
+use Sendcloud\Modules\Pickups;
 use Sendcloud\Modules\Tracking;
 
 class SendcloudAPI
@@ -255,6 +256,14 @@ class SendcloudAPI
     public function parcelStatuses(): ParcelStatuses
     {
         return new ParcelStatuses($this);
+    }
+
+    /**
+     * @return \Sendcloud\Modules\Pickups
+     */
+    public function pickups(): Pickups
+    {
+        return new Pickups($this);
     }
 
     /**

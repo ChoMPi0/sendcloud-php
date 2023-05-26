@@ -2,6 +2,10 @@
 
 namespace Sendcloud;
 
+/**
+ * Use this file in case of manually importing the library into your project.
+ */
+
 use Exception;
 
 if (!function_exists('json_decode')) {
@@ -24,6 +28,7 @@ require(dirname(__FILE__) . '/Modules/CustomsDeclarations.php');
 require(dirname(__FILE__) . '/Modules/Labels.php');
 require(dirname(__FILE__) . '/Modules/Parcels.php');
 require(dirname(__FILE__) . '/Modules/ParcelStatuses.php');
+require(dirname(__FILE__) . '/Modules/Pickups.php');
 require(dirname(__FILE__) . '/Modules/Tracking.php');
 
 require(dirname(__FILE__) . '/SendcloudAPI.php');
