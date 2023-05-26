@@ -4,7 +4,6 @@ namespace Sendcloud\Modules;
 
 use Sendcloud\Module;
 use Sendcloud\SendcloudResponse;
-use Sendcloud\Exceptions\ApiException;
 
 class Pickups extends Module
 {

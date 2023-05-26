@@ -2,16 +2,19 @@
 
 namespace Sendcloud;
 
-use Sendcloud\Modules\Parcels;
-use Sendcloud\Modules\Checkout;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Client;
 use Psr\Http\Message\ResponseInterface;
+use Sendcloud\Modules\Checkout;
 use Sendcloud\Modules\CustomsDeclarations;
 use Sendcloud\Modules\Labels;
 use Sendcloud\Modules\ParcelDocuments;
+use Sendcloud\Modules\Parcels;
 use Sendcloud\Modules\ParcelStatuses;
 use Sendcloud\Modules\Pickups;
+use Sendcloud\Modules\ShippingMethods;
+use Sendcloud\Modules\ShippingPrices;
+use Sendcloud\Modules\ShippingProducts;
 use Sendcloud\Modules\Tracking;
 
 class SendcloudAPI
@@ -267,10 +270,56 @@ class SendcloudAPI
     }
 
     /**
+     * @return \Sendcloud\Modules\ShippingMethods
+     */
+    public function shippingMethods(): ShippingMethods
+    {
+        return new ShippingMethods($this);
+    }
+
+    /**
+     * @return \Sendcloud\Modules\ShippingPrices
+     */
+    public function shippingPrices(): ShippingPrices
+    {
+        return new ShippingPrices($this);
+    }
+
+    /**
+     * @return \Sendcloud\Modules\ShippingProducts
+     */
+    public function shippingProducts(): ShippingProducts
+    {
+        return new ShippingProducts($this);
+    }
+
+    /**
      * @return \Sendcloud\Modules\Tracking
      */
     public function tracking(): Tracking
     {
         return new Tracking($this);
+    }
+
+    /**
+     * Magic method to allow retrieval of modules by their name.
+     *
+     * Examples:
+     *  $p = $this->labels
+     *
+     * @return mixed
+     */
+    public function __get(string $key)
+    {
+        $result = null;
+        $module = '\Sendcloud\Modules\\'.ucfirst($key);
+
+        // Check if the module exists
+        if (class_exists($module))
+        {
+            $result = new $module($this);
+        }
+
+        return $result;
     }
 }
