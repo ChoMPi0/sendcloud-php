@@ -8,7 +8,7 @@ use GuzzleHttp\Psr7\MessageTrait;
 use Sendcloud\Exceptions\InvalidPayloadException;
 use JsonException;
 
-class SendcloudResponse extends ResponseInterface
+class SendcloudResponse implements ResponseInterface
 {
     use MessageTrait;
 
