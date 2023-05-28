@@ -145,6 +145,11 @@ class SendcloudResponse implements ResponseInterface
         return $this->reasonPhrase;
     }
 
+    public function getPayload(): array
+    {
+        return $this->payload;
+    }
+
     public function withStatus($code, $reasonPhrase = ''): ResponseInterface
     {
         $code = (int)$code;

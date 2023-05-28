@@ -2,6 +2,9 @@
 
 namespace Sendcloud\Modules;
 
+use GuzzleHttp\Exception\ConnectException;
+use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\ServerException;
 use Sendcloud\Module;
 use Sendcloud\SendcloudResponse;
 
@@ -26,6 +29,10 @@ class ShippingProducts extends Module
      * @param array $query Params to pass in the query string
      *
      * @return SendcloudResponse
+     * 
+     * @throws ConnectException 
+     * @throws ClientException 
+     * @throws ServerException 
      */
     public function list(array $query = []): SendcloudResponse
     {
