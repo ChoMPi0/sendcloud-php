@@ -25,9 +25,16 @@ class SendcloudResponse implements ResponseInterface
     /**
      * An array containing the response data.
      *
-     * @var array
+     * @var array|null
      */
     protected $payload;
+
+    /**
+     * An array containing the response error data.
+     * 
+     * @var array
+     */
+    protected array $error;
 
     /** Map of standard HTTP status code/reason phrases */
     protected const PHRASES = [
@@ -121,15 +128,24 @@ class SendcloudResponse implements ResponseInterface
         {
             $this->reasonPhrase = 'Unknown status code';
         }
-        $this->payload = self::interpretResponse($body, $this->statusCode);
+        $this->payload = $this->interpretResponse($body, $this->statusCode);
     }
 
-    public static function interpretResponse(string $rbody, int $rcode)
+    public function interpretResponse(string $rbody, int $rcode): mixed
     {
-        try {
+        try
+        {
             $resp = json_decode($rbody, true, 512, JSON_THROW_ON_ERROR);
-        } catch (JsonException $e) {
-            throw new InvalidPayloadException("Invalid response body from API: $rbody " . "(HTTP response code was $rcode)");
+        }
+        catch (JsonException $e)
+        {
+            throw new InvalidPayloadException("Invalid response body from API, code: {$rcode}, body: {$rbody}", $e->getCode(), $e);
+        }
+
+        if (isset($resp['error']))
+        {
+            $this->error = $resp['error'];
+            return null;
         }
 
         return $resp;
@@ -148,6 +164,11 @@ class SendcloudResponse implements ResponseInterface
     public function getPayload(): array
     {
         return $this->payload;
+    }
+
+    public function getError(): object
+    {
+        return (object)$this->error;
     }
 
     public function withStatus($code, $reasonPhrase = ''): ResponseInterface

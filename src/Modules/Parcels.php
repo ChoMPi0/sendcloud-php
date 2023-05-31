@@ -48,7 +48,7 @@ class Parcels extends Module
     }
 
     /**
-     * Create a parcel
+     * Create a single parcel or a batch of parcels
      *
      * This endpoint creates a parcel under your API credentials.
      * You can choose to announce the parcel and create the shipping label at the same time as 
