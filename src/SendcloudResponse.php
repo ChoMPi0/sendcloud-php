@@ -29,13 +29,6 @@ class SendcloudResponse implements ResponseInterface
      */
     protected $payload;
 
-    /**
-     * An array containing the response error data.
-     * 
-     * @var array
-     */
-    protected array $error;
-
     /** Map of standard HTTP status code/reason phrases */
     protected const PHRASES = [
         100 => 'Continue',
@@ -142,12 +135,6 @@ class SendcloudResponse implements ResponseInterface
             throw new InvalidPayloadException("Invalid response body from API, code: {$rcode}, body: {$rbody}", $e->getCode(), $e);
         }
 
-        if (isset($resp['error']))
-        {
-            $this->error = $resp['error'];
-            return null;
-        }
-
         return $resp;
     }
 
@@ -164,11 +151,6 @@ class SendcloudResponse implements ResponseInterface
     public function getPayload(): array
     {
         return $this->payload;
-    }
-
-    public function getError(): object
-    {
-        return (object)$this->error;
     }
 
     public function withStatus($code, $reasonPhrase = ''): ResponseInterface

@@ -4,7 +4,9 @@ namespace Sendcloud;
 
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 use Psr\Http\Message\ResponseInterface;
+use Sendcloud\Exceptions\ApiException;
 use Sendcloud\Modules\Checkout;
 use Sendcloud\Modules\CustomsDeclarations;
 use Sendcloud\Modules\Labels;
@@ -81,7 +83,19 @@ class SendcloudAPI
         $uri = $this->buildUri($this->apiHost, $endpoint);
         $request = $this->buildRequest($method, $uri, $payload);
         $this->lastRequest = $request;
-        $response = $this->submitRequest($request);
+        $response = null;
+        
+        try
+        {
+            $response = $this->submitRequest($request);
+        }
+        catch (ClientException $e)
+        {
+            var_dump($e->getMessage());
+
+            throw new ApiException($e->getMessage(), $e->getCode(), $e);
+        }
+
         return new SendcloudResponse(
             $response->getStatusCode(), 
             $response->getHeaders(), 
