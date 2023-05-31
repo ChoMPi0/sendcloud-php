@@ -91,9 +91,14 @@ class SendcloudAPI
         }
         catch (ClientException $e)
         {
-            var_dump($e->getMessage());
-
-            throw new ApiException($e->getMessage(), $e->getCode(), $e);
+            if ($e->getCode() == 400)
+            {
+                $response = $e->getResponse();
+            }
+            else
+            {
+                throw new ApiException($e->getMessage(), $e->getCode(), $e);
+            }
         }
 
         return new SendcloudResponse(
