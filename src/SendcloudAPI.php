@@ -9,6 +9,7 @@ use Psr\Http\Message\ResponseInterface;
 use Sendcloud\Exceptions\ApiException;
 use Sendcloud\Modules\Checkout;
 use Sendcloud\Modules\CustomsDeclarations;
+use Sendcloud\Modules\Downloads;
 use Sendcloud\Modules\Labels;
 use Sendcloud\Modules\ParcelDocuments;
 use Sendcloud\Modules\Parcels;
@@ -247,6 +248,14 @@ class SendcloudAPI
     public function customsDeclarations(): CustomsDeclarations
     {
         return new CustomsDeclarations($this);
+    }
+
+    /**
+     * @return \Sendcloud\Modules\Downloads
+     */
+    public function downloads(): Downloads
+    {
+        return new Downloads($this);
     }
 
     /**

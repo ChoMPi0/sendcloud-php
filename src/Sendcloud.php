@@ -25,6 +25,7 @@ require(dirname(__FILE__) . '/Webhooks/ListenerInterface.php');
 
 require(dirname(__FILE__) . '/Modules/Checkout.php');
 require(dirname(__FILE__) . '/Modules/CustomsDeclarations.php');
+require(dirname(__FILE__) . '/Modules/Downloads.php');
 require(dirname(__FILE__) . '/Modules/Labels.php');
 require(dirname(__FILE__) . '/Modules/ParcelDocuments.php');
 require(dirname(__FILE__) . '/Modules/Parcels.php');
