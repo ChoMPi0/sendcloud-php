@@ -166,6 +166,9 @@ class SendcloudAPI
      */
     public function buildUri(string $host, string $path): string
     {
+        if (preg_match("@^https?://@", $path))
+            return ltrim($path, '/');
+            
         return sprintf(
             '%s/%s',
             rtrim($host, '/'),
