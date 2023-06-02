@@ -90,7 +90,7 @@ class Parcels extends Module
     {
         $endpoint = '/api/v2/parcels';
 
-        if (!isset($payload['id']))
+        if (!isset($payload['parcel']) && !isset($payload['parcel']['id']))
         {
             throw new ApiException('Please provide parcel id.');
         }
