@@ -2,8 +2,8 @@
 
 namespace Sendcloud\Modules;
 
+use GuzzleHttp\Psr7\Response;
 use Sendcloud\Module;
-use Sendcloud\SendcloudResponse;
 
 class Downloads extends Module
 {
@@ -15,10 +15,10 @@ class Downloads extends Module
      * @param string $url
      * @param array $query Params to pass in the query string
      *
-     * @return SendcloudResponse
+     * @return Response
      */
-    public function get(string $url, array $query = []): SendcloudResponse
+    public function get(string $url, array $query = []): Response
     {
-        return $this->sendcloud->request('get', $url, $query);
+        return $this->sendcloud->requestFile('get', $url, $query);
     }
 }

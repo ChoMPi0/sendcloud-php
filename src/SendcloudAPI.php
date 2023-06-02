@@ -4,6 +4,7 @@ namespace Sendcloud;
 
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Client;
+use GuzzleHttp\Psr7\Response as GuzzleResponse;
 use GuzzleHttp\Exception\ClientException;
 use Psr\Http\Message\ResponseInterface;
 use Sendcloud\Exceptions\ApiException;
@@ -63,24 +64,20 @@ class SendcloudAPI
 
     /**
      * Send a request to the Sendcloud API and return a ResponseInterface
-     * object. If the request is a GET request, any payload data will be
-     * built into a query string, otherwise it will be sent as JSON content.
+     * object.
      *
      * @param string $method The HTTP method to be used
      * @param string $endpoint Full path to request excluding the host
      * @param array $payload An array of params
      *
-     * @return \Sendcloud\SendcloudResponse
+     * @return ResponseInterface
      *
      * @throws \GuzzleHttp\Exception\ConnectException on network error
      * @throws \GuzzleHttp\Exception\ClientException on 400-level errors
      * @throws \GuzzleHttp\Exception\ServerException on 500-level errors
      */
-    public function request(
-        string $method,
-        string $endpoint,
-        array $payload = []
-    ): SendcloudResponse {
+    public function requestRaw(string $method, string $endpoint, array $payload = []): ResponseInterface
+    {
         $uri = $this->buildUri($this->apiHost, $endpoint);
         $request = $this->buildRequest($method, $uri, $payload);
         $this->lastRequest = $request;
@@ -102,6 +99,54 @@ class SendcloudAPI
             }
         }
 
+        return $response;
+    }
+
+    /**
+     * Send a request to the Sendcloud API and return a GuzzleResponse
+     * object.
+     *
+     * @param string $method The HTTP method to be used
+     * @param string $endpoint Full path to request excluding the host
+     * @param array $payload An array of params
+     *
+     * @return GuzzleResponse
+     *
+     * @throws \GuzzleHttp\Exception\ConnectException on network error
+     * @throws \GuzzleHttp\Exception\ClientException on 400-level errors
+     * @throws \GuzzleHttp\Exception\ServerException on 500-level errors
+     */
+    public function requestFile(string $method, string $endpoint, array $payload = []): GuzzleResponse
+    {
+        $response = $this->requestRaw($method, $endpoint, $payload);
+
+        return new GuzzleResponse(
+            $response->getStatusCode(), 
+            $response->getHeaders(), 
+            $response->getBody(), 
+            $response->getProtocolVersion(), 
+            $response->getReasonPhrase());
+    }
+
+    /**
+     * Send a request to the Sendcloud API and return a SendcloudResponse
+     * object. If the request is a GET request, any payload data will be
+     * built into a query string, otherwise it will be sent as JSON content.
+     *
+     * @param string $method The HTTP method to be used
+     * @param string $endpoint Full path to request excluding the host
+     * @param array $payload An array of params
+     *
+     * @return SendcloudResponse
+     *
+     * @throws \GuzzleHttp\Exception\ConnectException on network error
+     * @throws \GuzzleHttp\Exception\ClientException on 400-level errors
+     * @throws \GuzzleHttp\Exception\ServerException on 500-level errors
+     */
+    public function request(string $method, string $endpoint, array $payload = []): SendcloudResponse
+    {
+        $response = $this->requestRaw($method, $endpoint, $payload);
+
         return new SendcloudResponse(
             $response->getStatusCode(), 
             $response->getHeaders(), 
@@ -110,11 +155,8 @@ class SendcloudAPI
             $response->getReasonPhrase());
     }
 
-    public function buildRequest(
-        string $method,
-        string $uri,
-        array $options = []
-    ): SendcloudRequest {
+    public function buildRequest(string $method, string $uri, array $options = []): SendcloudRequest
+    {
         return new SendcloudRequest($method, $uri, $options);
     }
 
@@ -123,7 +165,7 @@ class SendcloudAPI
      *
      * @param SendcloudRequest $request
      * 
-     * @return \GuzzleHttp\Psr7\Response
+     * @return ResponseInterface
      */
     public function submitRequest(SendcloudRequest $request): ResponseInterface
     {
@@ -168,7 +210,7 @@ class SendcloudAPI
     {
         if (preg_match("@^https?://@", $path))
             return ltrim($path, '/');
-            
+
         return sprintf(
             '%s/%s',
             rtrim($host, '/'),
