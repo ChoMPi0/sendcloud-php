@@ -26,18 +26,24 @@ class SendcloudRequest
     protected $payload;
 
     /**
+     * An array of headers to be sent with the request.
+     * 
+     * @var array
+     */
+    protected $headers;
+
+    /**
      * @param string $method
      * @param string $uri
      * @param array $payload
+     * @param array $headers An array of additional headers
      */
-    public function __construct(
-        string $method,
-        string $uri,
-        array $payload
-    ) {
+    public function __construct(string $method, string $uri, array $payload, array $headers = [])
+    {
         $this->method = $method;
         $this->uri = $uri;
         $this->payload = $payload;
+        $this->headers = $headers;
     }
 
     /**
@@ -62,5 +68,13 @@ class SendcloudRequest
     public function getPayload(): array
     {
         return $this->payload;
+    }
+
+    /**
+     * @return array 
+     */
+    public function getHeaders(): array
+    {
+        return $this->headers;
     }
 }

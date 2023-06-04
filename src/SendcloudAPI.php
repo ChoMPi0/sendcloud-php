@@ -69,6 +69,7 @@ class SendcloudAPI
      * @param string $method The HTTP method to be used
      * @param string $endpoint Full path to request excluding the host
      * @param array $payload An array of params
+     * @param array $headers An array of additional headers
      *
      * @return ResponseInterface
      *
@@ -76,10 +77,10 @@ class SendcloudAPI
      * @throws \GuzzleHttp\Exception\ClientException on 400-level errors
      * @throws \GuzzleHttp\Exception\ServerException on 500-level errors
      */
-    public function requestRaw(string $method, string $endpoint, array $payload = []): ResponseInterface
+    public function requestRaw(string $method, string $endpoint, array $payload = [], array $headers = []): ResponseInterface
     {
         $uri = $this->buildUri($this->apiHost, $endpoint);
-        $request = $this->buildRequest($method, $uri, $payload);
+        $request = $this->buildRequest($method, $uri, $payload, $headers);
         $this->lastRequest = $request;
         $response = null;
         
@@ -118,7 +119,9 @@ class SendcloudAPI
      */
     public function requestFile(string $method, string $endpoint, array $payload = []): GuzzleResponse
     {
-        $response = $this->requestRaw($method, $endpoint, $payload);
+        $response = $this->requestRaw($method, $endpoint, $payload, [
+            'Accept' => 'application/pdf'
+        ]);
 
         return new GuzzleResponse(
             $response->getStatusCode(), 
@@ -145,7 +148,9 @@ class SendcloudAPI
      */
     public function request(string $method, string $endpoint, array $payload = []): SendcloudResponse
     {
-        $response = $this->requestRaw($method, $endpoint, $payload);
+        $response = $this->requestRaw($method, $endpoint, $payload, [
+            'Accept' => 'application/json'
+        ]);
 
         return new SendcloudResponse(
             $response->getStatusCode(), 
@@ -155,9 +160,19 @@ class SendcloudAPI
             $response->getReasonPhrase());
     }
 
-    public function buildRequest(string $method, string $uri, array $options = []): SendcloudRequest
+    /**
+     * Creates a request object.
+     * 
+     * @param string $method 
+     * @param string $uri 
+     * @param array $options 
+     * @param array $headers 
+     * 
+     * @return SendcloudRequest 
+     */
+    public function buildRequest(string $method, string $uri, array $options = [], array $headers = []): SendcloudRequest
     {
-        return new SendcloudRequest($method, $uri, $options);
+        return new SendcloudRequest($method, $uri, $options, $headers);
     }
 
     /**
@@ -170,13 +185,16 @@ class SendcloudAPI
     public function submitRequest(SendcloudRequest $request): ResponseInterface
     {
         $uri = $request->getUri();
+        $headers = array_merge(
+            [
+                'Authorization' => "Basic {$this->authToken}",
+                'Content-Type' => 'application/json',
+            ],
+            $request->getHeaders()
+        );
         $options = array_merge(
             [
-                'headers' => [
-                    'Authorization' => "Basic {$this->authToken}",
-                    'Accept' => 'application/json',
-                    'Content-Type' => 'application/json',
-                ],
+                'headers' => $headers,
                 'http_errors' => true,
             ],
             $this->options
