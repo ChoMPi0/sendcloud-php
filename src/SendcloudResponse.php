@@ -27,14 +27,14 @@ class SendcloudResponse implements ResponseInterface
      *
      * @var array|null
      */
-    protected $payload;
+    protected ?array $payload;
 
     /**
      * An array containing the response error data.
      * 
-     * @var array
+     * @var array|null
      */
-    protected array $error;
+    protected ?array $error = null;
 
     /** Map of standard HTTP status code/reason phrases */
     protected const PHRASES = [
